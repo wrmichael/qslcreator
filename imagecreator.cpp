@@ -7,13 +7,15 @@ QString line1;
 QString line2;
 QString line3;
 QString line4;
+int YourCallSignLoc=0;
+int YourCallSignSize=0;
 
 ImageCreator::ImageCreator(QObject *parent) : QObject(parent)
 {
 
 }
 
-void ImageCreator::CreateQSO(const QString &senderCallSign,const QString &Callsign,const QString &rcvRpt,const QString &sndRpt,const QString &QSOEndTime, const QString &mode, const QString &band)
+QString ImageCreator::CreateQSO(const QString &senderCallSign,const QString &Callsign,const QString &rcvRpt,const QString &sndRpt,const QString &QSOEndTime, const QString &mode, const QString &band)
 {
     qDebug() << templateImage;
     if (Callsign.length()==0)
@@ -21,15 +23,18 @@ void ImageCreator::CreateQSO(const QString &senderCallSign,const QString &Callsi
         return;
     }
     //1365 x 2048
-    QString url = templateImage; //R"(/home/waynem/Pictures/template.jpg)";
-QImage image(url);
-  QPainter p(&image);
+    QString url = templateImage;
 
-  //add white canvas to draw on
-  //if (!p.begin(&image)) return;
-//  p.setPen(QPen(Qt::white));
-  QRectF qr = QRectF(0,1000,image.width(),1365-1100);
+    QImage image(url);
+    QPainter p(&image);
+
+    QRectF qr = QRectF(0,1000,image.width(),1365-1100);
   p.fillRect(qr,Qt::white);
+
+  p.setPen(QPen(Qt::cyan));
+  p.setFont(QFont("Times", YourCallSignSize, QFont::AbsoluteSpacing|QFont::Bold));
+
+  p.drawText(YourCallSignLoc,YourCallSignSize,senderCallSign);
 
 
   p.setPen(QPen(Qt::white));

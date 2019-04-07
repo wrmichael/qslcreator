@@ -5,7 +5,7 @@
 #-------------------------------------------------
 
 QT       += core gui
-
+QT += network
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = QSLCreator
@@ -25,10 +25,16 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
         main.cpp \
-        mainwindow.cpp
+        mainwindow.cpp \
+    adifreader.cpp \
+    imagecreator.cpp \
+    networkhelper.cpp
 
 HEADERS += \
-        mainwindow.h
+        mainwindow.h \
+    adifreader.h \
+    imagecreator.h \
+    networkhelper.h
 
 FORMS += \
         mainwindow.ui
