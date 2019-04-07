@@ -20,7 +20,7 @@ QString ImageCreator::CreateQSO(const QString &senderCallSign,const QString &Cal
     qDebug() << templateImage;
     if (Callsign.length()==0)
     {
-        return;
+        return "";
     }
     //1365 x 2048
     QString url = templateImage;
@@ -68,6 +68,7 @@ QString ImageCreator::CreateQSO(const QString &senderCallSign,const QString &Cal
   qDebug() << path;
   qDebug() << qsoImage;
   image.save(path);
+  return path;
 }
 
 void ImageCreator::setImagePath(const QString &imagePath)

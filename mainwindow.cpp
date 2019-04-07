@@ -16,17 +16,6 @@ MainWindow::MainWindow(QWidget *parent) :
     nh.mw =this;
 
     this->loadDefaults();
-
-    /*
-    //load default values
-    ui->txtImage->setText("/home/waynem/Pictures/template.jpg");
-    ui->txtInput->setText("/home/waynem/AC9HP450067.adi");
-    ui->txtLine1->setText("Wayne Michael");
-    ui->txtLine2->setText("1255 Weston Drive");
-    ui->txtLine3->setText("Indianapolis IN 46234");
-    ui->txtLine4->setText("Hendricks County EM69TS");
-    */
-
 }
 
 void MainWindow::saveDefaults()
@@ -109,10 +98,6 @@ void MainWindow::handleClick()
     nh.action = "session";
     nh.fetch(qs);
 
-    //if no session found -- do nothing else...
-
-
-    //http://xmldata.qrz.com/xml/current/?s=f894c4bd29f3923f3bacf02c532d7bd9;callsign=aa7bq
 
  }
 
@@ -123,6 +108,62 @@ void MainWindow::handleBrowse()
     QString fileName = QFileDialog::getOpenFileName(this,
         tr("Open ADFI"), "~", tr("Amateur Logs (*.adf *.adfi *.log *.adi)"));
     ui->txtInput->setText(fileName);
+
+
+}
+
+
+
+void MainWindow::handleTestImage()
+{
+    // open ADI file
+
+    ADIFReader ai;
+    qDebug() << ui->txtInput->text();
+    QString qs = ai.ReadLog(ui->txtInput->text());
+
+    QString s="";
+    QString call = "";
+    QString mode = "";
+    QString date = "";
+    QString time = "";
+    QString band = "";
+    QString rst_sent = "";
+
+    ImageCreator ic;
+    ic.setImagePath(ui->txtImage->text());
+    ic.YourCallSignLoc = ui->txtYourCallSignLoc->text().toInt();
+    ic.YourCallSignSize = ui->txtYourCallSignSize->text().toInt();
+
+    ic.line1 = ui->txtLine1->text();
+    ic.line2 = ui->txtLine2->text();
+    ic.line3 = ui->txtLine3->text();
+    ic.line4 = ui->txtLine4->text();
+
+    for(int a =0;a<ai.getCount();a++)
+    {
+        call = ai.Value("CALL",a);
+        mode = ai.Value("MODE",a);
+        band = ai.Value("BAND",a);
+        date = ai.Value("QSO_DATE",a);
+        time= ai.Value("TIME_ON",a);
+        rst_sent = ai.Value("RST_SENT",a);
+
+        s = s + call + " " + fixDate(date) + " " + fixTime(time) + " " + band + " " + mode +" " + rst_sent + "\r\n";
+        QString myQSLCardPath = ic.CreateQSO("AC9HP",call,"",rst_sent,fixDate(date) + " " + fixTime(time), band, mode);
+
+        QPixmap img(myQSLCardPath);
+        ui->lblImage->setPixmap(img);
+        break;
+    }
+    ui->txtReply->setText(s);
+    // split on records
+
+    // parse info for each log entry
+
+    // create card for each log entry (image)
+
+    // save image based on QSL info
 
 
 }
@@ -178,6 +219,8 @@ void MainWindow::handleProcess()
 
 
 }
+
+
 
 QString MainWindow::fixDate(QString &d)
 {

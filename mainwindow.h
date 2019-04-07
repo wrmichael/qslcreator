@@ -37,6 +37,7 @@ public slots:
     void loadImage(const QString&);
     void handleProcess();
     void handleSaveDefaults();
+    void handleTestImage();
 
     QString fixDate(QString&);
     QString fixTime(QString&);
