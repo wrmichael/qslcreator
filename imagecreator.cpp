@@ -10,6 +10,17 @@ QString line4;
 int YourCallSignLoc=0;
 int YourCallSignSize=0;
 
+int line1_size = 0;
+int line2_size = 0;
+int line3_size = 0;
+int line4_size = 0;
+
+int line1_loc = 0;
+int line2_loc = 0;
+int line3_loc = 0;
+int line4_loc = 0;
+
+
 ImageCreator::ImageCreator(QObject *parent) : QObject(parent)
 {
 
@@ -38,7 +49,7 @@ QString ImageCreator::CreateQSO(const QString &senderCallSign,const QString &Cal
 
 
   p.setPen(QPen(Qt::white));
-  p.setFont(QFont("Times", 48, QFont::AbsoluteSpacing));
+  p.setFont(QFont("Times", line1_size, QFont::AbsoluteSpacing));
   //p.drawText(image.rect(),  Qt::AlignBottom, "AC9HP");
 
   //char buffer[100];
@@ -47,12 +58,22 @@ QString ImageCreator::CreateQSO(const QString &senderCallSign,const QString &Cal
   QString qso_line1 = "Confirming QSO from " + senderCallSign + " with " + Callsign + " on " + band + " using " + mode;
   QString qso_line2 = "Report Sent: " + sndRpt + " Date: " + QSOEndTime;
 
-  p.drawText(10,200,line1);
-  p.drawText(10,250,line2);
-  p.drawText(10,300,line3);
-  p.drawText(10,350,line4);
+  p.setPen(QPen(Qt::white));
+  p.setFont(QFont("Times", line1_size, QFont::AbsoluteSpacing));
+  p.drawText(10,line1_loc,line1);
+  p.setPen(QPen(Qt::white));
+  p.setFont(QFont("Times", line2_size, QFont::AbsoluteSpacing));
+  p.drawText(10,line2_loc,line2);
+  p.setPen(QPen(Qt::white));
+  p.setFont(QFont("Times", line3_size, QFont::AbsoluteSpacing));
+  p.drawText(10,line3_loc,line3);
+  p.setPen(QPen(Qt::white));
+  p.setFont(QFont("Times", line4_size, QFont::AbsoluteSpacing));
+  p.drawText(10,line4_loc,line4);
 
   p.setPen(QPen(Qt::blue));
+
+  p.setFont(QFont("Times", 48, QFont::AbsoluteSpacing));
 
   p.drawText(10,1100,qso_line1);
   p.drawText(10,1175,qso_line2);

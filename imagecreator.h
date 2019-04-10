@@ -15,8 +15,18 @@ public:
     QString line2;
     QString line3;
     QString line4;
+
     int YourCallSignLoc;
     int YourCallSignSize;
+    int line1_size;
+    int line2_size;
+    int line3_size;
+    int line4_size;
+
+    int line1_loc;
+    int line2_loc;
+    int line3_loc;
+    int line4_loc;
 
     QString CreateQSO(const QString&, const QString&,const QString&,const QString&,const QString&, const QString&, const QString&);
     void setImagePath(const QString&);

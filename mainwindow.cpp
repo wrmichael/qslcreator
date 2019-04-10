@@ -39,6 +39,14 @@ void MainWindow::saveDefaults()
     out<<ui->txtLine4->text()+"\r\n";
     out<<ui->txtYourCallSignLoc->text()+"\r\n";
     out<<ui->txtYourCallSignSize->text()+"\r\n";
+    out<<ui->txtLine1_size->text()+"\r\n";
+    out<<ui->txtLine1_loc->text()+"\r\n";
+    out<<ui->txtLine2_size->text()+"\r\n";
+    out<<ui->txtLine2_loc->text()+"\r\n";
+    out<<ui->txtLine3_size->text()+"\r\n";
+    out<<ui->txtLine3_loc->text()+"\r\n";
+    out<<ui->txtLine4_size->text()+"\r\n";
+    out<<ui->txtLine4_loc->text()+"\r\n";
     file.close();
 }
 void MainWindow::handleSaveDefaults()
@@ -66,6 +74,17 @@ void MainWindow::loadDefaults()
         ui->txtLine4->setText(file.readLine().trimmed()); //fourth county/locator
         ui->txtYourCallSignLoc->setText(file.readLine().trimmed());
         ui->txtYourCallSignSize->setText(file.readLine().trimmed());
+        ui->txtLine1_size->setText(file.readLine().trimmed());
+        ui->txtLine1_loc->setText(file.readLine().trimmed());
+        ui->txtLine2_size->setText(file.readLine().trimmed());
+
+        ui->txtLine2_loc->setText(file.readLine().trimmed());
+        ui->txtLine3_size->setText(file.readLine().trimmed());
+
+        ui->txtLine3_loc->setText(file.readLine().trimmed());
+        ui->txtLine4_size->setText(file.readLine().trimmed());
+
+        ui->txtLine4_loc->setText(file.readLine().trimmed());
 
         file.close();
     }
@@ -139,6 +158,16 @@ void MainWindow::handleTestImage()
     ic.line2 = ui->txtLine2->text();
     ic.line3 = ui->txtLine3->text();
     ic.line4 = ui->txtLine4->text();
+
+    ic.line1_loc = ui->txtLine1_loc->text().toInt();
+    ic.line1_size = ui->txtLine1_size->text().toInt();
+
+    ic.line2_loc = ui->txtLine2_loc->text().toInt();
+    ic.line2_size = ui->txtLine2_size->text().toInt();
+    ic.line3_loc = ui->txtLine3_loc->text().toInt();
+    ic.line3_size = ui->txtLine3_size->text().toInt();
+    ic.line4_loc = ui->txtLine4_loc->text().toInt();
+    ic.line4_size = ui->txtLine4_size->text().toInt();
 
     for(int a =0;a<ai.getCount();a++)
     {
